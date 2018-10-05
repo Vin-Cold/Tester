@@ -1,6 +1,6 @@
 这是我无聊的时候做的辣鸡评测机。
 
-目前的功能：评测多选手的多题代码是否正确。目前仅能判断"![](https://latex.codecogs.com/svg.latex?Accept)""Wrong Answer"。
+目前的功能：评测多选手的多题代码是否正确。目前仅能判断"Accept""Wrong Answer"。
 
 我会慢慢把它完善的。
 
