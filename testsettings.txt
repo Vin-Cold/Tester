@@ -1,0 +1,7 @@
+2
+std
+person
+1
+group
+1 20
+ans out
