@@ -44,42 +44,35 @@ inline void clear(){
 	memset(del,0,sizeof(del));
 	memset(produce,0,sizeof(produce));
 }
-int main(){//int pace=0;printf("%d %d\n",++pace,++pace);
+int main(){
     FILE*in=fopen("testsettings.txt","r");
     fscanf(in,"%d",&usernum);
     for (int i=1; i<=usernum; ++i)fscanf(in,"%s",username[i]);
     fscanf(in,"%d",&T);
     for (int t=1; t<=T; ++t){
-    	clear();
-    	/*printf("filename:")*/;fscanf(in,"%s",filename);puts(filename);
-    	/*printf("between :");*/fscanf(in,"%d %d",&head,&tail);
-    	/*printf("test suffix:");*/fscanf(in,"%s",suffix[0]);
-    	/*printf("ans  suffix:");*/fscanf(in,"%s",suffix[1]);
-    	//FILE*fp=fopen("Produce.bat","w+");
-    	//printf("%s\\%s.exe\n",filename,filename);
-    	//printf("%s\\%s.exe<%s\\%s%d.in>%s\\%s%d.%s\n",filename,filename,filename,filename,1,filename,filename,1,suffix[0]);
+    	clear(); fscanf(in,"%s",filename); fscanf(in,"%d %d",&head,&tail);
+    	fscanf(in,"%s",suffix[0]);fscanf(in,"%s",suffix[1]);puts(filename);
     	for (int j=1; j<=usernum; ++j){
     		puts(username[j]);int fl=0;time_t a,b;
     		for (int tmp=0,i=head; i<=tail; ++i){
-    			//printf("source\\%s\\%s.exe<data\\%s\\%s%d.in>data\\%s\\%s%d.%s\n",username[j],filename,filename,filename,i,filename,filename,i,suffix[0]);
-	        	/*fprintf(fp,"%s\\%s.exe<%s\\%s%d.in>%s\\%s%d.%s\n",filename,filename,filename,filename,i,filename,filename,i,suffix[0])*/
-				sprintf(produce,"source\\%s\\%s.exe<data\\%s\\%s%d.in>data\\%s\\%s%d.%s",username[j],filename,filename,filename,i,filename,filename,i,suffix[0]),
-                printf("%d:",++tmp),a=clock(),system(produce),b=clock();//wt(a,' '),wt(b,' '),
-                //int tsa=4440;printf("%d %d\n",(int)a,(int)b,tsa);printf("%d");
-				sprintf(del,"data\\%s\\%s%d.%s",filename,filename,i,suffix[0])/*,puts(del[i]);*/,memset(produce,0,sizeof(produce));
-				//    for (int i=head; i<=tail; ++i)
-				//        fprintf(fp,"fc %s%d.%s %s%d.%s\n",filename,i,suffix[0],filename,i,suffix[1]);
-    			sprintf(judge,"Judger.exe data\\%s\\%s%d.%s data\\%s\\%s%d.%s",filename,filename,i,suffix[0],filename,filename,i,suffix[1]);
-    			mark[i]=system(judge),printf("%s",mark[i]==0?"Wrong Answer":mark[i]==1?"Accept":"File Error"),remove(del),fl+=mark[i]==1;
-                if (mark[i]<2)printf("  Times:%dms\n",(int)b-(int)a);else putchar('\n');//printf("%d %d\n",(int)a,(int)b);
+    			sprintf(produce,"source\\%s\\%s.exe<data\\%s\\%s%d.in>data\\%s\\%s%d.%s",
+                 username[j],filename,filename,filename,i,filename,filename,i,suffix[0]),
+                printf("%d:",++tmp),a=clock(),system(produce),b=clock();
+                sprintf(del,"data\\%s\\%s%d.%s",filename,filename,i,suffix[0]),
+                memset(produce,0,sizeof(produce));
+				sprintf(judge,"Judger.exe data\\%s\\%s%d.%s data\\%s\\%s%d.%s",
+                  filename,filename,i,suffix[0],filename,filename,i,suffix[1]);
+    			mark[i]=system(judge),
+                printf("%s",mark[i]==0?"Wrong Answer":mark[i]==1?"Accept":"File Error"),
+                remove(del),fl+=(mark[i]==1);
+                if (mark[i]<2) printf("  Times:%dms\n",(int)b-(int)a);else putchar('\n');
     		}
 			printf("marks:%d\n",(fl*100/(tail-head+1)/100)*100);
 			flmk[j][t]=(fl*100/(tail-head+1)/100)*100;
     	}
-    	//for (int i=head; i<=tail; ++i) printf("%d\n",mark[i]);
-    	//puts("pause");
     }
 	FILE*out=fopen("Final.txt","wt+");
 	for (int i=1,j; i<=usernum; ++i)
-		for (printf("%s:",username[i]),fprintf(out,"%s:",username[i]),j=1; j<=T; ++j) wt(flmk[i][j]," \n"[j==T]),fprintf(out,"%d%c",flmk[i][j]," \n"[j==T]);
+		for (printf("%s:",username[i]),fprintf(out,"%s:",username[i]),j=1; j<=T; ++j)
+            wt(flmk[i][j]," \n"[j==T]),fprintf(out,"%d%c",flmk[i][j]," \n"[j==T]);
 }
