@@ -1,2 +1,2 @@
-tkw:100
-new:100
+std:100
+person:100

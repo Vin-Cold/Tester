@@ -44,7 +44,7 @@ inline void clear(){
 	memset(del,0,sizeof(del));
 	memset(produce,0,sizeof(produce));
 }
-int main(){
+int main(){//int pace=0;printf("%d %d\n",++pace,++pace);
     FILE*in=fopen("testsettings.txt","r");
     fscanf(in,"%d",&usernum);
     for (int i=1; i<=usernum; ++i)fscanf(in,"%s",username[i]);
@@ -59,16 +59,19 @@ int main(){
     	//printf("%s\\%s.exe\n",filename,filename);
     	//printf("%s\\%s.exe<%s\\%s%d.in>%s\\%s%d.%s\n",filename,filename,filename,filename,1,filename,filename,1,suffix[0]);
     	for (int j=1; j<=usernum; ++j){
-    		puts(username[j]);int fl=0;
+    		puts(username[j]);int fl=0;time_t a,b;
     		for (int tmp=0,i=head; i<=tail; ++i){
     			//printf("source\\%s\\%s.exe<data\\%s\\%s%d.in>data\\%s\\%s%d.%s\n",username[j],filename,filename,filename,i,filename,filename,i,suffix[0]);
 	        	/*fprintf(fp,"%s\\%s.exe<%s\\%s%d.in>%s\\%s%d.%s\n",filename,filename,filename,filename,i,filename,filename,i,suffix[0])*/
-				sprintf(produce,"source\\%s\\%s.exe<data\\%s\\%s%d.in>data\\%s\\%s%d.%s",username[j],filename,filename,filename,i,filename,filename,i,suffix[0]),system(produce),
+				sprintf(produce,"source\\%s\\%s.exe<data\\%s\\%s%d.in>data\\%s\\%s%d.%s",username[j],filename,filename,filename,i,filename,filename,i,suffix[0]),
+                printf("%d:",++tmp),a=clock(),system(produce),b=clock();//wt(a,' '),wt(b,' '),
+                //int tsa=4440;printf("%d %d\n",(int)a,(int)b,tsa);printf("%d");
 				sprintf(del,"data\\%s\\%s%d.%s",filename,filename,i,suffix[0])/*,puts(del[i]);*/,memset(produce,0,sizeof(produce));
 				//    for (int i=head; i<=tail; ++i)
 				//        fprintf(fp,"fc %s%d.%s %s%d.%s\n",filename,i,suffix[0],filename,i,suffix[1]);
-    			sprintf(judge,"Judger.exe data\\%s\\%s%d.%s data\\%s\\%s%d.%s",filename,filename,i,suffix[0],filename,filename,i,suffix[1]);printf("%d:",++tmp);
-    			mark[i]=system(judge),printf("%s\n",mark[i]==0?"Wrong Answer":mark[i]==1?"Accept":"File Error"),remove(del),fl+=mark[i];
+    			sprintf(judge,"Judger.exe data\\%s\\%s%d.%s data\\%s\\%s%d.%s",filename,filename,i,suffix[0],filename,filename,i,suffix[1]);
+    			mark[i]=system(judge),printf("%s",mark[i]==0?"Wrong Answer":mark[i]==1?"Accept":"File Error"),remove(del),fl+=mark[i]==1;
+                if (mark[i]<2)printf("  Times:%dms\n",(int)b-(int)a);else putchar('\n');//printf("%d %d\n",(int)a,(int)b);
     		}
 			printf("marks:%d\n",(fl*100/(tail-head+1)/100)*100);
 			flmk[j][t]=(fl*100/(tail-head+1)/100)*100;
