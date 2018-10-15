@@ -75,4 +75,5 @@ int main(){
 	for (int i=1,j; i<=usernum; ++i)
 		for (printf("%s:",username[i]),fprintf(out,"%s:",username[i]),j=1; j<=T; ++j)
             wt(flmk[i][j]," \n"[j==T]),fprintf(out,"%d%c",flmk[i][j]," \n"[j==T]);
+    return 0;
 }
